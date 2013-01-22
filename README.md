@@ -14,12 +14,13 @@ Sometimes it is useful to execute a piece of code on certain life cycle methods 
 For instance the Google Analytics library requires you to call a specific method in `onStart` and `onStop` of all your activities.
 
 One way to do this is to have a base activity that does the job in `onStart` and `onStop` and then have all your activities extend it.
-But this is not ideal - if you use other similar libraries, your activity hierarchy could get deep.
+But this is not ideal - if you use several libraries like this, your activity hierarchy could start to get deep (and 
+hard to read / maintain).
 
 This is why the ActivityLifecycleCallbacks APIs were introduced in Android 4.
 
-Basically you call `registerActivityLifecycleCallbacks` on your `Application` object, passing an `ActivityLifecycleCallbacks` object
-and the system will call the methods following the the life cycle of all the activities.
+Basically you call `registerActivityLifecycleCallbacks` on your `Application`, passing an `ActivityLifecycleCallbacks`
+and the system will call the methods following the life cycle of all the activities.
 
 This library allows you to use these APIs in versions of Android lower than 4.
 
@@ -29,7 +30,7 @@ What's the catch?
 Unfortunately there is no way to intercept the activity life cycle methods except by having your activities extend some base 
 class from this library.
 
-"So what's the point?", you may ask.
+*"So what's the point?"*, you may ask.
 
 1. This library provides base 'instrumented' versions of the most commonly used `Activity` flavors: `Activity`, `FragmentActivity`, `ListActivity`, etc.
 2. The API is basically the same as the one introduced in Android 4, so when you decide to drop support for older versions of the platform, you won't have to rewrite code: you can just remove this library and replace a few lines of code.
@@ -44,7 +45,7 @@ know how to do that.)
 Once you have done that, you simply need to call `ApplicationHelper.registerActivityLifecycleCallbacks(Application, ActivityLifecycleCallbacksCompat)`
 instead of calling `Application.registerActivityLifecycleCallbacks(ActivityLifecycleCallbacks)` (which exists only since Android 4).
 
-Then you need to have your activities extend one of the base activities in the `org.jraf.android.util.activitylifecyclecallbackscompat.app` package.
+Then you need to have all your activities extend one of the base activities in the `org.jraf.android.util.activitylifecyclecallbackscompat.app` package.
 For instance instead of:
     
     public class MainActivity extends Activity {
@@ -66,47 +67,43 @@ Here is an example for the ActionBarSherlock library:
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            if (ApplicationHelper.PRE_ICS) _getLifecycleDispatcher().onActivityCreated(this, savedInstanceState);
+            if (ApplicationHelper.PRE_ICS) MainLifecycleDispatcher.get().onActivityCreated(this, savedInstanceState);
         }
     
         @Override
         protected void onStart() {
             super.onStart();
-            if (ApplicationHelper.PRE_ICS) _getLifecycleDispatcher().onActivityStarted(this);
+            if (ApplicationHelper.PRE_ICS) MainLifecycleDispatcher.get().onActivityStarted(this);
         }
     
         @Override
         protected void onResume() {
             super.onResume();
-            if (ApplicationHelper.PRE_ICS) _getLifecycleDispatcher().onActivityResumed(this);
+            if (ApplicationHelper.PRE_ICS) MainLifecycleDispatcher.get().onActivityResumed(this);
         }
     
         @Override
         protected void onPause() {
             super.onPause();
-            if (ApplicationHelper.PRE_ICS) _getLifecycleDispatcher().onActivityPaused(this);
+            if (ApplicationHelper.PRE_ICS) MainLifecycleDispatcher.get().onActivityPaused(this);
         }
     
         @Override
         protected void onStop() {
             super.onStop();
-            if (ApplicationHelper.PRE_ICS) _getLifecycleDispatcher().onActivityStopped(this);
+            if (ApplicationHelper.PRE_ICS) MainLifecycleDispatcher.get().onActivityStopped(this);
         }
     
         @Override
         protected void onSaveInstanceState(Bundle outState) {
             super.onSaveInstanceState(outState);
-            if (ApplicationHelper.PRE_ICS) _getLifecycleDispatcher().onActivitySaveInstanceState(this, outState);
+            if (ApplicationHelper.PRE_ICS) MainLifecycleDispatcher.get().onActivitySaveInstanceState(this, outState);
         }
     
         @Override
         protected void onDestroy() {
             super.onDestroy();
-            if (ApplicationHelper.PRE_ICS) _getLifecycleDispatcher().onActivityDestroyed(this);
-        }
-    
-        private ActivityLifecycleCallbacksCompat _getLifecycleDispatcher() {
-            return MainLifecycleDispatcher.get();
+            if (ApplicationHelper.PRE_ICS) MainLifecycleDispatcher.get().onActivityDestroyed(this);
         }
     }
 
