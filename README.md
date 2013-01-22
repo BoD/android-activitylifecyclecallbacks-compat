@@ -59,7 +59,7 @@ An example application is available in the `example-project` folder.
 Using ActionBarSherlock or a similar library
 --------------------------------------------
 
-If you use a library that already requires your activities to extend a base class (for instante ActionBarSherlock),
+If you use a library that already requires your activities to extend a base class (e.g. ActionBarSherlock),
 simply create your own base activity using `LifecycleDispatchActivity.java` as a starting point.
 Here is an example for the ActionBarSherlock library:
 
