@@ -47,13 +47,15 @@ instead of calling `Application.registerActivityLifecycleCallbacks(ActivityLifec
 
 Then you need to have all your activities extend one of the base activities in the `org.jraf.android.util.activitylifecyclecallbackscompat.app` package.
 For instance instead of:
-    
+```java
     public class MainActivity extends Activity {
+```
     
 Use:
-    
+```java
     public class MainActivity extends LifecycleDispatchActivity {
-    
+```
+
 An example application is available in the `example-project` folder.
 
 Using ActionBarSherlock or a similar library
@@ -62,7 +64,7 @@ Using ActionBarSherlock or a similar library
 If you use a library that already requires your activities to extend a base class (e.g. ActionBarSherlock),
 simply create your own base activity using `LifecycleDispatchActivity.java` as a starting point.
 Here is an example for the ActionBarSherlock library:
-
+```java
     public class MyBaseActivity extends SherlockFragmentActivity {
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +108,7 @@ Here is an example for the ActionBarSherlock library:
             if (ApplicationHelper.PRE_ICS) MainLifecycleDispatcher.get().onActivityDestroyed(this);
         }
     }
+```
 
 Licence
 -------
