@@ -71,4 +71,16 @@ import android.os.Bundle;
     public void onActivityDestroyed(Activity activity) {
         mCallback.onActivityDestroyed(activity);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ActivityLifecycleCallbacksWrapper)) return false;
+        return ((ActivityLifecycleCallbacksWrapper) o).mCallback == mCallback;
+    }
+
+    @Override
+    public int hashCode() {
+        return mCallback.hashCode();
+    }
 }

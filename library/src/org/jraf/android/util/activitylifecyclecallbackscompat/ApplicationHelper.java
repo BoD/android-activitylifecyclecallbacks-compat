@@ -76,7 +76,7 @@ public class ApplicationHelper {
      * @param application The application with which to unregister the callback.
      * @param callback The callback to unregister.
      */
-    public void unregisterActivityLifecycleCallbacks(Application application, ActivityLifecycleCallbacksCompat callback) {
+    public static void unregisterActivityLifecycleCallbacks(Application application, ActivityLifecycleCallbacksCompat callback) {
         if (PRE_ICS) {
             preIcsUnregisterActivityLifecycleCallbacks(callback);
         } else {
