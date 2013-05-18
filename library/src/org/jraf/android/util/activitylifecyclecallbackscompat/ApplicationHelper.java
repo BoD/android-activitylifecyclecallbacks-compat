@@ -36,7 +36,8 @@ import android.os.Build;
  * When running on API level 14 or above, the framework's implementations of these methods will be used.
  */
 public class ApplicationHelper {
-    public static final boolean PRE_ICS = Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH;
+    @SuppressWarnings("deprecation")
+    public static final boolean PRE_ICS = Integer.valueOf(Build.VERSION.SDK) < Build.VERSION_CODES.ICE_CREAM_SANDWICH;
 
     /*
      * Register.

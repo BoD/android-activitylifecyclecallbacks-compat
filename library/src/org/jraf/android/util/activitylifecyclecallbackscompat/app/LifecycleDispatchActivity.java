@@ -32,7 +32,7 @@ import org.jraf.android.util.activitylifecyclecallbackscompat.MainLifecycleDispa
 /**
  * Extension of {@link Activity} that dispatches its life cycle calls to registered listeners.
  */
-public class LifecycleDispatchActivity extends Activity {
+public abstract class LifecycleDispatchActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
