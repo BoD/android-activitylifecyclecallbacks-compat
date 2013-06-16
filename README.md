@@ -2,7 +2,7 @@ Android ActivityLifecycleCallbacks Compatibility Library
 ========================================================
 
 A 'compatibility' version of the ActivityLifecycleCallbacks APIs (http://developer.android.com/reference/android/app/Application.ActivityLifecycleCallbacks.html)
-that were introduced on Android 4.
+that were introduced in Android 4 (API Level 14).
 
 This library works on Android 1+.
 
